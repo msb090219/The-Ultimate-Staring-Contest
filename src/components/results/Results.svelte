@@ -12,7 +12,6 @@
   import confetti from 'canvas-confetti';
   import ScoreDisplay from './ScoreDisplay.svelte';
   import RankDisplay from './RankDisplay.svelte';
-  import ReasonDisplay from './ReasonDisplay.svelte';
   import DisqualifiedBanner from './DisqualifiedBanner.svelte';
   import ShareButton from './ShareButton.svelte';
   import PlayAgainButton from './PlayAgainButton.svelte';
@@ -323,29 +322,10 @@
       <RankDisplay rank={getRank($gameState.finalTime)} />
     {/if}
 
-    <ReasonDisplay
-      reason={$gameState.lossReason}
-      isDisqualified={$gameState.isDisqualified}
-    />
-
     <div class="actions">
       <ShareButton time={$gameState.finalTime} />
       <PlayAgainButton onClick={handlePlayAgain} />
     </div>
-
-    {#if scoreSubmitted && submissionResult}
-      <div class="submission-result">
-        {#if submissionResult.success}
-          {#if submissionResult.better}
-            <p class="success">🎉 New personal best: {$gameState.finalTime.toFixed(2)}s!</p>
-          {:else}
-            <p class="info">{submissionResult.message} | Your time: {$gameState.finalTime.toFixed(2)}s</p>
-          {/if}
-        {:else}
-          <p class="error">Failed to save score: {submissionResult.error}</p>
-        {/if}
-      </div>
-    {/if}
   </div>
 
   <LeaderboardFull />
@@ -400,31 +380,6 @@
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
-  }
-
-  .submission-result {
-    padding: 1rem;
-    background: rgba(0, 255, 136, 0.1);
-    border-radius: 8px;
-    border: 1px solid rgba(0, 255, 136, 0.3);
-  }
-
-  .success {
-    color: #00ff88;
-    font-weight: 600;
-    margin: 0;
-  }
-
-  .info {
-    color: #00ccff;
-    font-weight: 500;
-    margin: 0;
-  }
-
-  .error {
-    color: #ff4444;
-    font-weight: 500;
-    margin: 0;
   }
 
   @keyframes flashFade {
