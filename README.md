@@ -153,7 +153,5 @@ This project is open source and available under the MIT License.
 - MediaPipe for face tracking technology
 - Supabase for backend infrastructure
 - Svelte and Vite for the development experience
+- Claude Code
 
----
-
-Built with ❤️ for the ultimate staring competition.
