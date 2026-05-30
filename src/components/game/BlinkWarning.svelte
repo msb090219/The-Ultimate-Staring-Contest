@@ -1,5 +1,6 @@
 <script>
   import { faceState } from '../../stores/faceState.js';
+  import { scale } from 'svelte/transition';
   import { quintInOut } from 'svelte/easing';
 
   $: isVisible = $faceState.blinkWarningLevel > 0.3;
@@ -11,7 +12,7 @@
   <div
     class="blink-warning"
     style="--intensity: {intensity};"
-    transition:scale|global={{ duration: 200, easing: quintInOut, start: 0.9 }}
+    transition:scale={{ duration: 200, easing: quintInOut, start: 0.9 }}
   >
     <div class="warning-icon">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

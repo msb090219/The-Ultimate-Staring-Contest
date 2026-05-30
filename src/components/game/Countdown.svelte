@@ -2,7 +2,6 @@
   import { onMount, onDestroy } from 'svelte';
   import { gameState } from '../../stores/gameState.js';
   import { gameEngine } from '../../services/gameEngine.js';
-  import WebcamFeed from './WebcamFeed.svelte';
 
   let count = 3;
   let isVisible = true;
@@ -39,7 +38,6 @@
 </script>
 
 <div class="countdown-container">
-  <WebcamFeed />
   {#if isVisible}
     <div class="countdown-overlay">
       <div class="number">
@@ -51,13 +49,6 @@
 
 <style>
   .countdown-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .countdown-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -66,9 +57,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.7);
     z-index: 1000;
-    pointer-events: none;
+  }
+
+  .countdown-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .number {

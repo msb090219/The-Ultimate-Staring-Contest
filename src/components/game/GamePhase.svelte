@@ -20,9 +20,11 @@
 <div class="game-phase" style="--intensity: {intensity};">
   <div class="tension-overlay"></div>
   <BlinkWarning />
-  <div class="game-container">
+  <div class="game-wrapper">
     <WebcamFeed />
-    <TimerDisplay />
+    <div class="timer-container">
+      <TimerDisplay />
+    </div>
   </div>
 
   <PositionIndicator />
@@ -57,6 +59,20 @@
     z-index: 0;
   }
 
+  .game-wrapper {
+    position: relative;
+    z-index: 1;
+  }
+
+  .timer-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    pointer-events: none;
+  }
+
   @keyframes tensionPulse {
     0%, 100% {
       opacity: 0.3;
@@ -66,10 +82,5 @@
       opacity: 0.5 + var(--intensity) * 0.3;
       transform: scale(1 + var(--intensity) * 0.1);
     }
-  }
-
-  .game-container {
-    position: relative;
-    z-index: 1;
   }
 </style>
