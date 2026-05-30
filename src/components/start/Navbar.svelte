@@ -27,8 +27,8 @@
   <div class="navbar-content">
     <div class="navbar-left">
       <a href="/" class="logo-link">
-        <img src="/favicon.svg" alt="Do Not Blink" class="logo-icon" />
-        <span class="logo-text">Do Not Blink</span>
+        <img src="/favicon.svg" alt="The Ultimate Staring Competition" class="logo-icon" />
+        <span class="logo-text">The Ultimate Staring Competition</span>
       </a>
     </div>
 

@@ -22,9 +22,7 @@
   <BlinkWarning />
   <div class="game-wrapper">
     <WebcamFeed />
-    <div class="timer-container">
-      <TimerDisplay />
-    </div>
+    <TimerDisplay />
   </div>
 
   <PositionIndicator />
@@ -60,17 +58,12 @@
   }
 
   .game-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
     position: relative;
     z-index: 1;
-  }
-
-  .timer-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-    pointer-events: none;
   }
 
   @keyframes tensionPulse {

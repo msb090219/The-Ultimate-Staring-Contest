@@ -40,7 +40,8 @@
       "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_console_messages",
       "mcp__plugin_chrome-devtools-mcp_chrome-devtools__get_console_message",
       "mcp__plugin_chrome-devtools-mcp_chrome-devtools__click",
-      "Bash(git commit -m 'fix: remove duplicate video feeds and center timer *)"
+      "Bash(git commit -m 'fix: remove duplicate video feeds and center timer *)",
+      "Bash(git commit -m 'fix: update UI elements *)"
     ]
   }
 }
