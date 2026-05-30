@@ -44,12 +44,6 @@
     }
   }
 
-  function handleBackdropKeydown(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      onClose();
-    }
-  }
-
   function getMedalColor(rank) {
     if (rank === 1) return '#ffd700';
     if (rank === 2) return '#c0c0c0';
@@ -75,15 +69,8 @@
 </script>
 
 {#if isOpen}
-  <div
-    class="modal-backdrop"
-    on:click={handleBackdropClick}
-    on:keydown={handleBackdropKeydown}
-    role="button"
-    tabindex="0"
-    aria-label="Close modal"
-  >
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-backdrop" on:click={handleBackdropClick}>
+    <div class="modal">
       <button class="close-btn" on:click={onClose}>
         <X size={24} />
       </button>
@@ -92,7 +79,7 @@
         <div class="header-icon">
           <Trophy size={32} />
         </div>
-        <h2 id="modal-title">Global Leaderboard</h2>
+        <h2>Global Leaderboard</h2>
       </div>
 
       {#if isLoading}

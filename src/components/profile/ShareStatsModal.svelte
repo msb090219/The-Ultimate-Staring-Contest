@@ -41,11 +41,14 @@
   function generateShareableImage() {
     if (!canvasElement) return;
 
-    ctx = canvasElement.getContext('2d');
-    const width = 1200;
-    const height = 630;
-    canvasElement.width = width;
-    canvasElement.height = height;
+    try {
+      ctx = canvasElement.getContext('2d');
+      if (!ctx) return;
+
+      const width = 1200;
+      const height = 630;
+      canvasElement.width = width;
+      canvasElement.height = height;
 
     // Background - dark gradient
     const bgGradient = ctx.createLinearGradient(0, 0, width, height);
@@ -158,6 +161,10 @@
 
     // Convert to image
     imageUrl = canvasElement.toDataURL('image/png');
+    } catch (err) {
+      console.error('Error generating shareable image:', err);
+      imageUrl = '';
+    }
   }
 
   function roundRect(ctx, x, y, width, height, radius) {
@@ -213,28 +220,21 @@
 </script>
 
 {#if isOpen}
-  <div
-    class="modal-backdrop"
-    on:click={handleBackdropClick}
-    on:keydown={handleBackdropKeydown}
-    role="button"
-    tabindex="0"
-    aria-label="Close modal"
-  >
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-backdrop" on:click={handleBackdropClick}>
+    <div class="modal">
       <button class="close-btn" on:click={onClose}>
         <X size={24} />
       </button>
 
       <div class="modal-header">
-        <h2 id="modal-title">Share Your Stats</h2>
+        <h2>Share Your Stats</h2>
       </div>
 
       <canvas bind:this={canvasElement} style="display: none;"></canvas>
 
       {#if imageUrl}
         <div class="image-preview">
-          <img src={imageUrl} alt="" role="presentation" />
+          <img src={imageUrl} alt="Shareable stats image" />
         </div>
 
         <div class="share-actions">
