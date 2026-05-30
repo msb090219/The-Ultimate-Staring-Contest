@@ -9,7 +9,6 @@
   import GamePhase from './components/game/GamePhase.svelte';
   import Results from './components/results/Results.svelte';
   import ProfilePage from './components/profile/ProfilePage.svelte';
-  import SettingsPage from './components/settings/SettingsPage.svelte';
 
   let phase = $gameState.phase;
 
@@ -42,10 +41,6 @@
   {:else if phase === 'profile'}
     <div transition:fade|global>
       <ProfilePage />
-    </div>
-  {:else if phase === 'settings'}
-    <div transition:fade|global>
-      <SettingsPage />
     </div>
   {/if}
 </div>

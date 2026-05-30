@@ -31,34 +31,19 @@
     border-radius: 12px;
     color: #0a0a0a;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease;
     box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .start-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
-  }
-
-  .start-button:hover:not(:disabled)::before {
-    left: 100%;
+    text-align: center;
+    min-width: 100px;
   }
 
   .start-button:hover:not(:disabled) {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 6px 25px rgba(0, 255, 136, 0.5);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 18px rgba(0, 255, 136, 0.4);
   }
 
   .start-button:active:not(:disabled) {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0);
   }
 
   .start-button:disabled {
@@ -67,17 +52,9 @@
     box-shadow: none;
   }
 
-  .start-button:disabled::before {
-    display: none;
-  }
-
   /* Compact variant for navbar */
   .start-button.size-compact {
     padding: 0.6rem 1.2rem;
     font-size: 0.9rem;
-  }
-
-  .start-button.size-compact:hover:not(:disabled) {
-    transform: translateY(-1px);
   }
 </style>

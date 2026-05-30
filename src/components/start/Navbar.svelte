@@ -2,7 +2,7 @@
   import { authState } from '../../stores/authState.js';
   import { gameState } from '../../stores/gameState.js';
   import { authService } from '../../services/auth.js';
-  import { BarChart3, Settings, LogOut } from 'lucide-svelte';
+  import { BarChart3, LogOut } from 'lucide-svelte';
 
   export let onSignIn = () => {};
   export let inCalibration = false;
@@ -19,11 +19,6 @@
 
   function goToProfile() {
     gameState.setPhase('profile');
-    closeUserMenu();
-  }
-
-  function goToSettings() {
-    gameState.setPhase('settings');
     closeUserMenu();
   }
 </script>
@@ -61,10 +56,6 @@
               <button class="dropdown-item" on:click={goToProfile}>
                 <BarChart3 size={18} class="dropdown-icon" />
                 Stats
-              </button>
-              <button class="dropdown-item" on:click={goToSettings}>
-                <Settings size={18} class="dropdown-icon" />
-                Settings
               </button>
               <div class="dropdown-divider"></div>
               <button class="dropdown-item dropdown-danger" on:click={() => authService.signOut()}>

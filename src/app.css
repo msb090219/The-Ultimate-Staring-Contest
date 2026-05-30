@@ -163,33 +163,12 @@ button {
   border: none;
   border-radius: var(--border-radius);
   cursor: pointer;
-  transition: var(--transition-smooth);
-  position: relative;
-  overflow: hidden;
-}
-
-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  transition: left 0.5s;
-}
-
-button:hover::before {
-  left: 100%;
+  transition: var(--transition);
 }
 
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-button:disabled::before {
-  display: none;
 }
 
 button.primary {
@@ -199,8 +178,7 @@ button.primary {
 }
 
 button.primary:hover:not(:disabled) {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 0 40px rgba(0, 255, 136, 0.6);
+  transform: translateY(-1px);
 }
 
 button.secondary {
@@ -213,7 +191,6 @@ button.secondary:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.05);
   border-color: var(--color-primary);
   color: var(--color-primary);
-  transform: translateY(-2px);
 }
 
 /* Inputs */
