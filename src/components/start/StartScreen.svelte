@@ -126,9 +126,12 @@
   }
 
   .page-header h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin: 0;
   }
 
