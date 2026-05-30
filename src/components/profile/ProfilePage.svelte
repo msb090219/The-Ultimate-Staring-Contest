@@ -284,7 +284,7 @@
 
   .content {
     flex: 1;
-    max-width: 1200px;
+    max-width: 1600px;
     width: 100%;
     margin: 0 auto;
     padding: 2rem;
@@ -300,7 +300,7 @@
   }
 
   .page-header h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     margin: 0;
     background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
@@ -400,9 +400,9 @@
   }
 
   .section-title {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 1rem 0;
     color: #fff;
   }
 
@@ -418,8 +418,14 @@
 
   .stats-grid-enhanced {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
+  }
+
+  @media (max-width: 1200px) {
+    .stats-grid-enhanced {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   @media (max-width: 900px) {
@@ -428,7 +434,7 @@
     }
 
     .stats-grid-enhanced {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
@@ -513,29 +519,29 @@
   }
 
   .stat-value {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #00ff88;
     line-height: 1;
   }
 
   .stat-value-large {
-    font-size: 4rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: #00ff88;
     line-height: 1;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .stat-value-small {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 600;
     color: #00ccff;
     line-height: 1.4;
   }
 
   .stat-value-medium {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #22c55e;
     line-height: 1;
@@ -546,6 +552,13 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
+  }
+
+  .stat-card {
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .stat-content {
