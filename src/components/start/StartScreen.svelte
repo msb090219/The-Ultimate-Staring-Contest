@@ -108,7 +108,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 3rem;
     padding-top: 5rem;
   }
 
@@ -121,13 +121,13 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 500px;
+    max-width: 700px;
   }
 
   .player-controls-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
     align-items: flex-start;
   }
 
@@ -136,7 +136,7 @@
   }
 
   .player-label {
-    font-size: 0.75rem;
+    font-size: 1rem;
     color: #888;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -145,7 +145,7 @@
   .player-input-row {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   @media (max-width: 600px) {

@@ -93,17 +93,17 @@
 <style>
   .leaderboard-preview {
     width: 100%;
-    max-width: 500px;
-    padding: 2rem;
+    max-width: 700px;
+    padding: 2.5rem;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 2rem;
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     color: #00ff88;
   }
 
@@ -117,16 +117,16 @@
   .entries {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
+    gap: 1rem;
+    margin-bottom: 2rem;
   }
 
   .entry {
     display: grid;
-    grid-template-columns: 40px 1fr 80px;
+    grid-template-columns: 50px 1fr 100px;
     align-items: center;
-    gap: 1rem;
-    padding: 0.75rem 1rem;
+    gap: 1.5rem;
+    padding: 1rem 1.5rem;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 8px;
     transition: background 0.2s ease;
@@ -187,13 +187,13 @@
 
   .view-all-btn {
     width: 100%;
-    padding: 1rem;
-    margin-top: 1.5rem;
+    padding: 1.25rem 2rem;
+    margin-top: 2rem;
     background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 204, 255, 0.1) 100%);
     border: 2px solid rgba(0, 255, 136, 0.3);
     border-radius: 8px;
     color: #00ff88;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
