@@ -7,6 +7,7 @@
   import { Trophy, Gamepad2, Award, TrendingUp, Calendar, Target, ArrowLeft } from 'lucide-svelte';
   import Navbar from '../start/Navbar.svelte';
   import PerformanceChart from './PerformanceChart.svelte';
+  import Achievements from './Achievements.svelte';
 
   let userStats = null;
   let detailedStats = null;
@@ -206,6 +207,18 @@
               </div>
             {/each}
           </div>
+        </div>
+      {/if}
+
+      <!-- Achievements -->
+      {#if detailedStats}
+        <div class="achievements-section">
+          <h3 class="section-title">Achievements</h3>
+          <Achievements
+            games={detailedStats.allScores || []}
+            bestTime={detailedStats.bestTime || 0}
+            globalRank={detailedStats.globalRank}
+          />
         </div>
       {/if}
 
@@ -657,6 +670,10 @@
   }
 
   .chart-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .achievements-section {
     margin-bottom: 2.5rem;
   }
 
