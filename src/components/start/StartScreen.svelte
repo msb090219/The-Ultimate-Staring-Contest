@@ -72,6 +72,11 @@
 
   <div class="content" class:calibration-mode={showCalibration}>
     {#if !showCalibration}
+      <!-- Small header -->
+      <div class="page-header">
+        <h2>Are you ready to compete?</h2>
+      </div>
+
       <!-- Player controls above leaderboard -->
       <div class="player-section">
         <div class="player-controls-wrapper">
@@ -114,6 +119,17 @@
 
   .content.calibration-mode {
     padding-top: 2rem;
+  }
+
+  .page-header {
+    text-align: center;
+  }
+
+  .page-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
   }
 
   .player-section {
