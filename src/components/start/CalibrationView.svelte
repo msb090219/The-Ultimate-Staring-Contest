@@ -280,12 +280,15 @@
 
   .eye-loader {
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .eye {
-    position: absolute;
+    position: relative;
     border-radius: 50%;
     animation: blink 3s ease-in-out infinite;
   }
@@ -298,6 +301,7 @@
   }
 
   .eye.inner {
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
