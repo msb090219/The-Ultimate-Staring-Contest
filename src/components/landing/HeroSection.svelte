@@ -21,6 +21,7 @@
     <h1 class="headline">The Ultimate Staring Competition</h1>
     <p class="tagline">How long can you maintain eye contact without blinking?</p>
     <button class="cta-button" on:click={handleStartClick}>Start Playing</button>
+    <a href="https://github.com/msb090219/The-Ultimate-Staring-Contest" target="_blank" rel="noopener noreferrer" class="github-link">View on GitHub</a>
   </div>
 </div>
 
@@ -106,6 +107,18 @@
 
   .cta-button:active {
     transform: scale(0.98);
+  }
+
+  .github-link {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+    margin-top: -0.5rem;
+  }
+
+  .github-link:hover {
+    color: #00ff88;
   }
 
   @media (max-width: 768px) {

@@ -94,13 +94,6 @@
       </div>
 
       <LeaderboardPreview />
-
-      <!-- GitHub link -->
-      <div class="github-link">
-        <a href="https://github.com/msb090219/The-Ultimate-Staring-Contest" target="_blank" rel="noopener noreferrer">
-          View on GitHub
-        </a>
-      </div>
     {:else}
       <CalibrationView ready={handleCalibrationReady} />
     {/if}
@@ -172,22 +165,6 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
-  }
-
-  .github-link {
-    text-align: center;
-    margin-top: 1rem;
-  }
-
-  .github-link a {
-    color: #888;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s ease;
-  }
-
-  .github-link a:hover {
-    color: #00ff88;
   }
 
   @media (max-width: 600px) {
