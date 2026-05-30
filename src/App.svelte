@@ -1,7 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-  import { fade, fly, scale } from 'svelte/transition';
-  import { quintInOut } from 'svelte/easing';
   import { gameState } from './stores/gameState.js';
   import HeroSection from './components/landing/HeroSection.svelte';
   import StartScreen from './components/start/StartScreen.svelte';
@@ -19,29 +17,17 @@
 
 <div class="app">
   {#if phase === 'landing'}
-    <div transition:fade|global>
-      <HeroSection />
-    </div>
+    <HeroSection />
   {:else if phase === 'start'}
-    <div transition:fade|global>
-      <StartScreen />
-    </div>
+    <StartScreen />
   {:else if phase === 'countdown'}
-    <div transition:scale|global={{ duration: 300, easing: quintInOut }}>
-      <Countdown />
-    </div>
+    <Countdown />
   {:else if phase === 'playing'}
-    <div transition:fade|global>
-      <GamePhase />
-    </div>
+    <GamePhase />
   {:else if phase === 'results'}
-    <div transition:fly|global={{ y: 20, duration: 400, easing: quintInOut }}>
-      <Results />
-    </div>
+    <Results />
   {:else if phase === 'profile'}
-    <div transition:fade|global>
-      <ProfilePage />
-    </div>
+    <ProfilePage />
   {/if}
 </div>
 

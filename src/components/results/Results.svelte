@@ -21,15 +21,10 @@
   let scoreSubmitted = false;
   let submissionResult = null;
   let showConfetti = false;
-  let gameOverFlash = false;
-  let revealStage = 0; // 0: initial, 1: flash, 2: content
 
   onMount(async () => {
     // Stop game engine
     gameEngine.stop();
-
-    // Dramatic reveal sequence
-    await triggerGameOverReveal();
 
     // Submit score if not disqualified (guest or authenticated)
     if (!$gameState.isDisqualified) {
@@ -39,23 +34,6 @@
     // Load user-centric leaderboard
     await loadUserCentricLeaderboard();
   });
-
-  async function triggerGameOverReveal() {
-    // Stage 1: Initial flash
-    gameOverFlash = true;
-    revealStage = 1;
-    await tick();
-
-    // Stage 2: Shake effect
-    setTimeout(() => {
-      gameOverFlash = false;
-    }, 150);
-
-    // Stage 3: Reveal content
-    setTimeout(() => {
-      revealStage = 2;
-    }, 300);
-  }
 
   async function loadUserCentricLeaderboard() {
     let userId, guestIdentifier;
@@ -306,11 +284,7 @@
   });
 </script>
 
-<div class="results" class:flash={gameOverFlash} class:revealed={revealStage === 2}>
-  {#if gameOverFlash}
-    <div class="flash-overlay"></div>
-  {/if}
-
+<div class="results">
   <div class="results-content">
     {#if $gameState.isDisqualified}
       <DisqualifiedBanner />
@@ -340,31 +314,6 @@
     align-items: center;
     gap: 2rem;
     padding: 2rem;
-    position: relative;
-    transition: opacity 0.3s ease;
-  }
-
-  .results:not(.revealed) {
-    opacity: 0;
-  }
-
-  .results.revealed {
-    animation: resultsReveal 0.5s ease-out forwards;
-  }
-
-  .flash-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, rgba(255, 68, 68, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
-    z-index: 1000;
-    animation: flashFade 150ms ease-out forwards;
-  }
-
-  .results.flash {
-    animation: screenShake 150ms ease-out;
   }
 
   .results-content {
@@ -380,44 +329,5 @@
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
-  }
-
-  @keyframes flashFade {
-    0% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-
-  @keyframes screenShake {
-    0%, 100% {
-      transform: translate(0, 0);
-    }
-    25% {
-      transform: translate(-5px, 5px);
-    }
-    50% {
-      transform: translate(5px, -5px);
-    }
-    75% {
-      transform: translate(-5px, -5px);
-    }
-  }
-
-  @keyframes resultsReveal {
-    0% {
-      opacity: 0;
-      transform: translateY(20px) scale(0.95);
-    }
-    50% {
-      opacity: 0.7;
-      transform: translateY(-10px) scale(1.02);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
   }
 </style>
