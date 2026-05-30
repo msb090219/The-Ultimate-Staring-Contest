@@ -8,6 +8,7 @@
   import Navbar from '../start/Navbar.svelte';
   import PerformanceChart from './PerformanceChart.svelte';
   import Achievements from './Achievements.svelte';
+  import ShareStats from './ShareStats.svelte';
 
   let userStats = null;
   let detailedStats = null;
@@ -77,6 +78,15 @@
         <ArrowLeft size={20} />
       </button>
       <h1>Your Stats</h1>
+      {#if detailedStats}
+        <ShareStats
+          gamesPlayed={detailedStats.gamesPlayed}
+          bestTime={detailedStats.bestTime}
+          globalRank={detailedStats.globalRank}
+          percentile={detailedStats.percentile}
+          playerName={$authState.user?.game_name || 'Player'}
+        />
+      {/if}
     </div>
 
     {#if loading}
@@ -286,6 +296,7 @@
     align-items: center;
     gap: 1.5rem;
     margin-bottom: 2.5rem;
+    flex-wrap: wrap;
   }
 
   .page-header h1 {
