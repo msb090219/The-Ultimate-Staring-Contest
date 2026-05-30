@@ -8,6 +8,7 @@
   import Navbar from '../start/Navbar.svelte';
 
   let userStats = null;
+  let detailedStats = null;
   let userScores = [];
   let loading = true;
   let error = null;
@@ -19,7 +20,7 @@
     }
 
     await loadUserStats();
-    await loadUserScores();
+    await loadDetailedStats();
   });
 
   async function loadUserStats() {
@@ -37,6 +38,13 @@
     const result = await supabaseService.getUserBestScore($authState.user.id);
     if (result.success && result.data) {
       userScores = [result.data];
+    }
+  }
+
+  async function loadDetailedStats() {
+    const result = await supabaseService.getUserDetailedStats($authState.user.id);
+    if (result.success) {
+      detailedStats = result.data;
     }
   }
 
@@ -96,7 +104,7 @@
       <div class="stats-section">
         <h3 class="section-title">Performance</h3>
 
-        <div class="stats-grid">
+        <div class="stats-grid-enhanced">
           <!-- Best Time Card -->
           <div class="stat-card stat-card-large">
             <div class="stat-header">
@@ -106,11 +114,11 @@
               <span class="stat-label">Best Time</span>
             </div>
             <div class="stat-value-large">
-              {userStats?.best_time ? userStats.best_time.toFixed(2) : '--'}
+              {detailedStats?.bestTime ? detailedStats.bestTime.toFixed(2) : '--'}
             </div>
-            {#if userStats?.best_time}
-              <div class="stat-rank-badge" style="background: {getRankColor(userStats.best_time)}33; color: {getRankColor(userStats.best_time)}">
-                {getRankForTime(userStats.best_time)}
+            {#if detailedStats?.bestTime}
+              <div class="stat-rank-badge" style="background: {getRankColor(detailedStats.bestTime)}33; color: {getRankColor(detailedStats.bestTime)}">
+                {getRankForTime(detailedStats.bestTime)}
               </div>
             {:else}
               <div class="stat-placeholder">No games yet</div>
@@ -122,26 +130,75 @@
             <div class="stat-icon stat-icon-secondary">
               <Gamepad2 size={28} />
             </div>
-            <div class="stat-value">{userStats?.games_played || 0}</div>
+            <div class="stat-value">{detailedStats?.gamesPlayed || 0}</div>
             <div class="stat-label">Games Played</div>
           </div>
 
-          <!-- Rank Card -->
+          <!-- Average Time Card -->
           <div class="stat-card">
             <div class="stat-icon stat-icon-accent">
               <Target size={28} />
             </div>
-            <div class="stat-value-small">
-              {#if userStats?.best_time}
-                {getRankForTime(userStats.best_time)}
-              {:else}
-                --
+            <div class="stat-value">{detailedStats?.averageTime ? detailedStats.averageTime.toFixed(2) : '--'}</div>
+            <div class="stat-label">Average Time</div>
+          </div>
+
+          <!-- Total Time Survived Card -->
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-purple">
+              <Award size={28} />
+            </div>
+            <div class="stat-value">{detailedStats?.totalTimeSurvived ? detailedStats.totalTimeSurvived.toFixed(0) : '--'}</div>
+            <div class="stat-label">Total Seconds</div>
+          </div>
+
+          <!-- Global Rank Card -->
+          <div class="stat-card stat-card-wide">
+            <div class="stat-icon stat-icon-green">
+              <TrendingUp size={28} />
+            </div>
+            <div class="stat-content">
+              <div class="stat-value-medium">
+                {detailedStats?.globalRank ? '#' + detailedStats.globalRank : '--'}
+              </div>
+              <div class="stat-label">Global Rank</div>
+              {#if detailedStats?.globalRank}
+                <div class="stat-subtext">out of {detailedStats.totalPlayers.toLocaleString()} players</div>
               {/if}
             </div>
-            <div class="stat-label">Current Rank</div>
+          </div>
+
+          <!-- Percentile Card -->
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-orange">
+              <Trophy size={28} />
+            </div>
+            <div class="stat-value">{detailedStats?.percentile ? detailedStats.percentile.toFixed(1) : '--'}%</div>
+            <div class="stat-label">Percentile</div>
           </div>
         </div>
       </div>
+
+      <!-- Recent Games -->
+      {#if detailedStats?.recentGames && detailedStats.recentGames.length > 0}
+        <div class="history-section">
+          <h3 class="section-title">Recent Games</h3>
+          <div class="games-list">
+            {#each detailedStats.recentGames as game, index}
+              <div class="game-item">
+                <div class="game-position">{index + 1}</div>
+                <div class="game-details">
+                  <div class="game-time">{game.time_seconds.toFixed(2)}s</div>
+                  <div class="game-date">{new Date(game.created_at).toLocaleDateString()}</div>
+                </div>
+                <div class="game-rank" style="color: {getRankColor(game.time_seconds)}">
+                  {getRankForTime(game.time_seconds)}
+                </div>
+              </div>
+            {/each}
+          </div>
+        </div>
+      {/if}
 
       <!-- Recent Achievement -->
       {#if userScores.length > 0}
@@ -326,6 +383,22 @@
     gap: 1.5rem;
   }
 
+  .stats-grid-enhanced {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stats-grid-enhanced {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
   @media (max-width: 900px) {
     .stats-grid {
       grid-template-columns: 1fr;
@@ -383,6 +456,21 @@
     color: #00ccff;
   }
 
+  .stat-icon-purple {
+    background: rgba(147, 51, 234, 0.1);
+    color: #9333ea;
+  }
+
+  .stat-icon-green {
+    background: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+  }
+
+  .stat-icon-orange {
+    background: rgba(249, 115, 22, 0.1);
+    color: #f97316;
+  }
+
   .stat-label {
     font-size: 0.85rem;
     color: #888;
@@ -411,6 +499,31 @@
     font-weight: 600;
     color: #00ccff;
     line-height: 1.4;
+  }
+
+  .stat-value-medium {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #22c55e;
+    line-height: 1;
+  }
+
+  .stat-card-wide {
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .stat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .stat-subtext {
+    font-size: 0.85rem;
+    color: #888;
   }
 
   .stat-rank-badge {
@@ -528,5 +641,93 @@
   .empty-state button:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+  }
+
+  .history-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .game-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .game-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(0, 255, 136, 0.2);
+    transform: translateX(4px);
+  }
+
+  .game-position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 255, 136, 0.1);
+    border-radius: 8px;
+    font-weight: 700;
+    color: #00ff88;
+    font-size: 1.1rem;
+  }
+
+  .game-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .game-time {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .game-date {
+    font-size: 0.9rem;
+    color: #888;
+  }
+
+  .game-rank {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+  }
+
+  @media (max-width: 600px) {
+    .stats-grid-enhanced {
+      grid-template-columns: 1fr;
+    }
+
+    .stat-card-wide {
+      grid-column: span 1;
+    }
+
+    .game-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .game-position {
+      width: 32px;
+      height: 32px;
+      font-size: 0.9rem;
+    }
   }
 </style>

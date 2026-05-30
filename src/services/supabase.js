@@ -241,6 +241,75 @@ export class SupabaseService {
     }
   }
 
+  async getUserDetailedStats(userId) {
+    try {
+      // Get all user's scores
+      const { data: userScores, error } = await this.client
+        .from('scores')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('is_disqualified', false)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      // Get global leaderboard for rank calculation
+      const globalResult = await this.getTopScores(10000); // Get all scores for accurate ranking
+      const allScores = globalResult.success ? globalResult.data : [];
+      const totalPlayers = allScores.length;
+
+      // Calculate statistics
+      const gamesPlayed = userScores?.length || 0;
+      const bestTime = userScores?.[0]?.time_seconds || 0;
+
+      let averageTime = 0;
+      let totalTimeSurvived = 0;
+
+      if (gamesPlayed > 0) {
+        totalTimeSurvived = userScores.reduce((sum, score) => sum + score.time_seconds, 0);
+        averageTime = totalTimeSurvived / gamesPlayed;
+      }
+
+      // Find global rank
+      let globalRank = null;
+      if (bestTime > 0) {
+        for (let i = 0; i < allScores.length; i++) {
+          if (allScores[i].user_id === userId) {
+            globalRank = i + 1;
+            break;
+          }
+        }
+      }
+
+      // Calculate percentile
+      let percentile = 0;
+      if (globalRank && totalPlayers > 0) {
+        percentile = ((totalPlayers - globalRank + 1) / totalPlayers) * 100;
+      }
+
+      // Get recent games (last 10)
+      const recentGames = userScores?.slice(0, 10) || [];
+
+      return {
+        success: true,
+        data: {
+          gamesPlayed,
+          bestTime,
+          averageTime,
+          totalTimeSurvived,
+          globalRank,
+          totalPlayers,
+          percentile,
+          recentGames,
+          allScores: userScores || []
+        }
+      };
+    } catch (error) {
+      console.error('Failed to fetch detailed user stats:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
   // User profile operations
   async getUserProfile(userId) {
     try {
