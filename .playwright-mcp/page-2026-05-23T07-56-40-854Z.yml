@@ -1,0 +1,32 @@
+- generic [ref=e64]:
+  - generic [ref=e65]:
+    - generic [ref=e66]:
+      - heading "7.81s" [level=1] [ref=e67]
+      - paragraph [ref=e68]: Time Survived
+    - paragraph [ref=e70]: Weak but Respectable
+    - paragraph [ref=e72]: You blinked
+    - generic [ref=e73]:
+      - button "Share Score" [ref=e74] [cursor=pointer]
+      - button "Play Again" [ref=e75] [cursor=pointer]
+    - paragraph [ref=e77]: "🎉 New personal best: 7.81s!"
+  - generic [ref=e78]:
+    - 'heading "Your Rank: #102" [level=2] [ref=e79]'
+    - generic [ref=e80]:
+      - generic [ref=e81]:
+        - generic [ref=e82]: "100"
+        - generic [ref=e83]: FocusFlash
+        - generic [ref=e84]: 8.30s
+        - generic [ref=e85]: 27 Apr 2026
+      - generic [ref=e86]:
+        - generic [ref=e87]: "101"
+        - generic [ref=e88]: FocusLegend
+        - generic [ref=e89]: 7.81s
+        - generic [ref=e90]: 29 Apr 2026
+      - generic [ref=e91]:
+        - generic [ref=e92]: "102"
+        - generic [ref=e93]:
+          - text: Guest-9422
+          - generic [ref=e94]: You
+        - generic [ref=e95]: 7.81s
+        - generic [ref=e96]: 23 May 2026
+    - button "View Full Leaderboard" [ref=e97] [cursor=pointer]

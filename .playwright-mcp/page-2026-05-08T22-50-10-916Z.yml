@@ -1,0 +1,15 @@
+- generic [ref=e29]:
+  - generic [ref=e30]:
+    - generic [ref=e31]:
+      - paragraph [ref=e32]: Position lost. Round forfeited.
+      - paragraph [ref=e33]: This time was not submitted to the leaderboard.
+    - generic [ref=e34]:
+      - heading "0.00s" [level=1] [ref=e35]
+      - paragraph [ref=e36]: Time Survived
+    - paragraph [ref=e38]: Position lost
+    - generic [ref=e39]:
+      - button "Share Score" [ref=e40] [cursor=pointer]
+      - button "Play Again" [ref=e41] [cursor=pointer]
+  - generic [ref=e42]:
+    - heading "Global Leaderboard" [level=2] [ref=e43]
+    - paragraph [ref=e44]: No scores yet. Be the first!

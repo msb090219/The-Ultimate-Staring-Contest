@@ -1,0 +1,16 @@
+- generic [ref=e5]:
+  - heading "The Ultimate Staring Competition" [level=1] [ref=e6]
+  - paragraph [ref=e7]: How long can you maintain eye contact without blinking?
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - button "G Google" [ref=e10] [cursor=pointer]:
+        - generic [ref=e11]: G
+        - generic [ref=e12]: Google
+      - button "⚡ GitHub" [ref=e13] [cursor=pointer]:
+        - generic [ref=e14]: ⚡
+        - generic [ref=e15]: GitHub
+    - paragraph [ref=e16]: Sign in to compete on the global leaderboard
+  - button "Start Staring" [disabled] [ref=e17]
+  - generic [ref=e18]:
+    - heading "Top Stare-ers" [level=2] [ref=e19]
+    - paragraph [ref=e20]: No scores yet. Be the first!

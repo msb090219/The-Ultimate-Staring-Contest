@@ -1,0 +1,219 @@
+/* CSS Variables - Eye-themed palette */
+:root {
+  /* Backgrounds */
+  --color-bg: #0a0a0a;
+  --color-bg-elevated: #111111;
+  --color-bg-card: #1a1a1a;
+
+  /* Primary colors - Eye iris theme */
+  --color-primary: #00ff88;
+  --color-primary-dim: #00cc66;
+  --color-secondary: #00ccff;
+  --color-accent: #9d4edd;
+
+  /* Semantic colors */
+  --color-danger: #ff4444;
+  --color-warning: #ffaa00;
+  --color-success: #00ff88;
+  --color-info: #00ccff;
+
+  /* Text colors */
+  --color-text: #ffffff;
+  --color-text-muted: #a0a0a0;
+  --color-text-dim: #666666;
+
+  /* Gradient definitions */
+  --gradient-primary: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+  --gradient-danger: linear-gradient(135deg, #ff4444 0%, #ff6b6b 100%);
+  --gradient-accent: linear-gradient(135deg, #9d4edd 0%, #c77dff 100%);
+
+  /* Eye glow effects */
+  --glow-primary: 0 0 30px rgba(0, 255, 136, 0.4);
+  --glow-secondary: 0 0 30px rgba(0, 204, 255, 0.4);
+  --glow-danger: 0 0 30px rgba(255, 68, 68, 0.4);
+  --glow-accent: 0 0 30px rgba(157, 78, 221, 0.4);
+
+  /* Base settings */
+  --font-family: system-ui, -apple-system, sans-serif;
+  --border-radius: 12px;
+  --transition: 0.2s ease;
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+/* Typography */
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+p {
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+/* Buttons */
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s;
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:disabled::before {
+  display: none;
+}
+
+button.primary {
+  background: var(--gradient-primary);
+  color: var(--color-bg);
+  box-shadow: var(--glow-primary);
+}
+
+button.primary:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 40px rgba(0, 255, 136, 0.6);
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--color-text);
+  border: 2px solid var(--color-text);
+}
+
+button.secondary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+/* Inputs */
+input {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius);
+  color: var(--color-text);
+  transition: var(--transition-smooth);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: rgba(0, 255, 136, 0.05);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+}
+
+input::placeholder {
+  color: var(--color-text-dim);
+}
+
+/* Utility classes */
+.hidden {
+  display: none !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.text-danger {
+  color: var(--color-danger);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-8 {
+  gap: 2rem;
+}

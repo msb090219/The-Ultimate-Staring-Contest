@@ -1,0 +1,32 @@
+- generic [ref=e30]:
+  - generic [ref=e31]:
+    - generic [ref=e32]:
+      - heading "1.70s" [level=1] [ref=e33]
+      - paragraph [ref=e34]: Time Survived
+    - paragraph [ref=e36]: NPC Blink Speed
+    - paragraph [ref=e38]: You blinked
+    - generic [ref=e39]:
+      - button "Share Score" [ref=e40] [cursor=pointer]
+      - button "Play Again" [ref=e41] [cursor=pointer]
+    - paragraph [ref=e43]: "Your time: 1.70s | Best: Your best: 7.81s"
+  - generic [ref=e44]:
+    - 'heading "Your Rank: #102" [level=2] [ref=e45]'
+    - generic [ref=e46]:
+      - generic [ref=e47]:
+        - generic [ref=e48]: "100"
+        - generic [ref=e49]: FocusFlash
+        - generic [ref=e50]: 8.30s
+        - generic [ref=e51]: 27 Apr 2026
+      - generic [ref=e52]:
+        - generic [ref=e53]: "101"
+        - generic [ref=e54]: FocusLegend
+        - generic [ref=e55]: 7.81s
+        - generic [ref=e56]: 29 Apr 2026
+      - generic [ref=e57]:
+        - generic [ref=e58]: "102"
+        - generic [ref=e59]:
+          - text: Guest-9422
+          - generic [ref=e60]: You
+        - generic [ref=e61]: 7.81s
+        - generic [ref=e62]: 23 May 2026
+    - button "View Full Leaderboard" [ref=e63] [cursor=pointer]

@@ -1,0 +1,20 @@
+- generic [ref=e4]:
+  - navigation [ref=e5]:
+    - generic [ref=e6]:
+      - link "Do Not Blink Do Not Blink" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Do Not Blink" [ref=e9]
+        - generic [ref=e10]: Do Not Blink
+      - button "Sign In" [ref=e12] [cursor=pointer]
+  - generic [ref=e13]:
+    - generic [ref=e14]:
+      - heading "The Ultimate Staring Competition" [level=1] [ref=e15]
+      - paragraph [ref=e16]: How long can you maintain eye contact without blinking?
+    - generic [ref=e18]:
+      - generic [ref=e19]: Playing as
+      - generic [ref=e20]:
+        - textbox "Enter your name" [ref=e21]: Guest-9422
+        - button "Start" [ref=e22] [cursor=pointer]
+    - generic [ref=e23]:
+      - heading "Top Stare-ers" [level=2] [ref=e24]
+      - paragraph [ref=e25]: No scores yet. Be the first!

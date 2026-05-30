@@ -1,0 +1,5 @@
+- generic [ref=e5]:
+  - img "Do Not Blink" [ref=e7]
+  - heading "The Ultimate Staring Competition" [level=1] [ref=e8]
+  - paragraph [ref=e9]: How long can you maintain eye contact without blinking?
+  - button "Start Playing" [ref=e10] [cursor=pointer]
