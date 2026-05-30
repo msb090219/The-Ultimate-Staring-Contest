@@ -122,19 +122,146 @@
     if (result.success && result.better) {
       console.log('[Results] Triggering confetti for new personal best!');
       await tick();
-      triggerConfetti();
+      const rank = getRank($gameState.finalTime);
+      triggerConfetti(rank);
     } else {
       console.log('[Results] No confetti - success:', result.success, 'better:', result.better);
     }
   }
 
-  function triggerConfetti() {
+  function triggerConfetti(rank) {
     // Game theme colors: green (#00ff88) and cyan (#00ccff)
     const colors = ['#00ff88', '#00ccff', '#00ffaa', '#00ddff'];
 
-    // Main explosion from center
+    // Different celebration levels based on rank
+    const rankName = rank?.name || '';
+    const isHighRank = ['Probably Not Human', 'Villain Energy'].includes(rankName);
+    const isMediumRank = ['Suspiciously Focused', 'Weak but Respectable'].includes(rankName);
+
+    if (isHighRank) {
+      // EPIC celebration for top ranks
+      triggerEpicConfetti(colors);
+    } else if (isMediumRank) {
+      // Nice celebration for mid ranks
+      triggerMediumConfetti(colors);
+    } else {
+      // Standard celebration
+      triggerStandardConfetti(colors);
+    }
+  }
+
+  function triggerEpicConfetti(colors) {
+    // Multiple waves from all directions
+    const duration = 3000;
+    const end = Date.now() + duration;
+
+    const frame = () => {
+      confetti({
+        particleCount: 3,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0, y: 0.8 },
+        colors: colors,
+        disableForReducedMotion: true,
+        zIndex: 1000
+      });
+      confetti({
+        particleCount: 3,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1, y: 0.8 },
+        colors: colors,
+        disableForReducedMotion: true,
+        zIndex: 1000
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    };
+
+    // Initial massive burst
+    confetti({
+      particleCount: 200,
+      spread: 100,
+      origin: { y: 0.6, x: 0.5 },
+      colors: colors,
+      disableForReducedMotion: true,
+      zIndex: 1000
+    });
+
+    confetti({
+      particleCount: 100,
+      angle: 60,
+      spread: 70,
+      origin: { x: 0, y: 0.7 },
+      colors: colors,
+      disableForReducedMotion: true,
+      zIndex: 1000
+    });
+
+    confetti({
+      particleCount: 100,
+      angle: 120,
+      spread: 70,
+      origin: { x: 1, y: 0.7 },
+      colors: colors,
+      disableForReducedMotion: true,
+      zIndex: 1000
+    });
+
+    // Start continuous rain
+    frame();
+  }
+
+  function triggerMediumConfetti(colors) {
+    // Multiple coordinated bursts
     confetti({
       particleCount: 150,
+      spread: 80,
+      origin: { y: 0.6, x: 0.5 },
+      colors: colors,
+      disableForReducedMotion: true,
+      zIndex: 1000
+    });
+
+    setTimeout(() => {
+      confetti({
+        particleCount: 80,
+        angle: 60,
+        spread: 60,
+        origin: { x: 0, y: 0.75 },
+        colors: colors,
+        disableForReducedMotion: true,
+        zIndex: 1000
+      });
+      confetti({
+        particleCount: 80,
+        angle: 120,
+        spread: 60,
+        origin: { x: 1, y: 0.75 },
+        colors: colors,
+        disableForReducedMotion: true,
+        zIndex: 1000
+      });
+    }, 150);
+
+    setTimeout(() => {
+      confetti({
+        particleCount: 60,
+        spread: 90,
+        origin: { y: 0.7, x: 0.5 },
+        colors: colors,
+        disableForReducedMotion: true,
+        zIndex: 1000
+      });
+    }, 300);
+  }
+
+  function triggerStandardConfetti(colors) {
+    // Simple celebration burst
+    confetti({
+      particleCount: 100,
       spread: 70,
       origin: { y: 0.6, x: 0.5 },
       colors: colors,
@@ -142,10 +269,9 @@
       zIndex: 1000
     });
 
-    // Secondary bursts from sides
     setTimeout(() => {
       confetti({
-        particleCount: 80,
+        particleCount: 50,
         angle: 60,
         spread: 55,
         origin: { x: 0, y: 0.8 },
@@ -157,7 +283,7 @@
 
     setTimeout(() => {
       confetti({
-        particleCount: 80,
+        particleCount: 50,
         angle: 120,
         spread: 55,
         origin: { x: 1, y: 0.8 },
@@ -166,18 +292,6 @@
         zIndex: 1000
       });
     }, 400);
-
-    // Final celebration burst
-    setTimeout(() => {
-      confetti({
-        particleCount: 100,
-        spread: 100,
-        origin: { y: 0.7, x: 0.5 },
-        colors: colors,
-        disableForReducedMotion: true,
-        zIndex: 1000
-      });
-    }, 600);
   }
 
   function handlePlayAgain() {
