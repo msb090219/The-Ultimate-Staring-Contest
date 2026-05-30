@@ -19,6 +19,12 @@
     }
   }
 
+  function handleBackdropKeydown(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      onClose();
+    }
+  }
+
   function handleKeydown(e) {
     if (e.key === 'Escape' && isOpen) {
       onClose();
@@ -207,21 +213,28 @@
 </script>
 
 {#if isOpen}
-  <div class="modal-backdrop" on:click={handleBackdropClick}>
-    <div class="modal">
+  <div
+    class="modal-backdrop"
+    on:click={handleBackdropClick}
+    on:keydown={handleBackdropKeydown}
+    role="button"
+    tabindex="0"
+    aria-label="Close modal"
+  >
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <button class="close-btn" on:click={onClose}>
         <X size={24} />
       </button>
 
       <div class="modal-header">
-        <h2>Share Your Stats</h2>
+        <h2 id="modal-title">Share Your Stats</h2>
       </div>
 
       <canvas bind:this={canvasElement} style="display: none;"></canvas>
 
       {#if imageUrl}
         <div class="image-preview">
-          <img src={imageUrl} alt="Shareable stats image" />
+          <img src={imageUrl} alt="" role="presentation" />
         </div>
 
         <div class="share-actions">

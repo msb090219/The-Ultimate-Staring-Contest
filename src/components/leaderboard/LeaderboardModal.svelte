@@ -4,6 +4,7 @@
   import { getOrCreateGuest } from '../../lib/utils/guest.js';
   import { onMount } from 'svelte';
   import { formatDate } from '../../lib/utils/time.js';
+  import { Trophy, X } from 'lucide-svelte';
 
   export let isOpen = false;
   export let onClose = () => {};
@@ -43,6 +44,19 @@
     }
   }
 
+  function handleBackdropKeydown(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      onClose();
+    }
+  }
+
+  function getMedalColor(rank) {
+    if (rank === 1) return '#ffd700';
+    if (rank === 2) return '#c0c0c0';
+    if (rank === 3) return '#cd7f32';
+    return '#888';
+  }
+
   function isCurrentUser(score) {
     if ($authState.isAuthenticated) {
       return score.user_id === $authState.user?.id;
@@ -61,11 +75,25 @@
 </script>
 
 {#if isOpen}
-  <div class="modal-backdrop" on:click={handleBackdropClick}>
-    <div class="modal">
-      <button class="close-btn" on:click={onClose}>×</button>
+  <div
+    class="modal-backdrop"
+    on:click={handleBackdropClick}
+    on:keydown={handleBackdropKeydown}
+    role="button"
+    tabindex="0"
+    aria-label="Close modal"
+  >
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="close-btn" on:click={onClose}>
+        <X size={24} />
+      </button>
 
-      <h2>🏆 Global Leaderboard</h2>
+      <div class="modal-header">
+        <div class="header-icon">
+          <Trophy size={32} />
+        </div>
+        <h2 id="modal-title">Global Leaderboard</h2>
+      </div>
 
       {#if isLoading}
         <p class="loading">Loading leaderboard...</p>
@@ -81,8 +109,14 @@
           </div>
           {#each allScores as score, index}
             {@const isUser = isCurrentUser(score)}
+            {@const rank = index + 1}
             <div class="score-entry" class:current-user={isCurrentUser(score)}>
-              <span class="rank rank-{index < 3 ? index + 1 : ''}">{index + 1}</span>
+              <span class="rank" style:color={getMedalColor(rank)}>
+                {#if rank <= 3}
+                  <Trophy size={16} style="margin-right: 4px;" />
+                {/if}
+                {rank}
+              </span>
               <span class="name">
                 {score.game_name}
                 {#if isUser}
@@ -106,52 +140,73 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    backdrop-filter: blur(4px);
   }
 
   .modal {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    border-radius: 20px;
-    padding: 2.5rem;
+    background: #1a1a1a;
+    border-radius: 16px;
+    padding: 2rem;
     width: 90%;
     max-width: 600px;
     max-height: 80vh;
     position: relative;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
   }
 
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    border-radius: 12px;
+    color: #0a0a0a;
+  }
+
+  .modal-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: #fff;
+    text-align: center;
+  }
+
   .close-btn {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 0.5rem;
+    right: 0.5rem;
     background: none;
     border: none;
     color: #888;
-    font-size: 1.5rem;
     cursor: pointer;
-    padding: 0.25rem;
-    line-height: 1;
-    transition: color 0.2s ease;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s ease;
   }
 
   .close-btn:hover {
     color: #fff;
-  }
-
-  h2 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    text-align: center;
-    margin: 0 0 2rem 0;
-    color: #fff;
-    padding-right: 2rem;
   }
 
   .loading,
@@ -163,23 +218,23 @@
 
   .leaderboard-list {
     overflow-y: auto;
-    max-height: calc(80vh - 150px);
+    max-height: calc(80vh - 120px);
     padding-right: 0.5rem;
   }
 
   /* Custom scrollbar */
   .leaderboard-list::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   .leaderboard-list::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
+    border-radius: 3px;
   }
 
   .leaderboard-list::-webkit-scrollbar-thumb {
     background: rgba(0, 255, 136, 0.3);
-    border-radius: 4px;
+    border-radius: 3px;
   }
 
   .leaderboard-list::-webkit-scrollbar-thumb:hover {
@@ -190,11 +245,11 @@
     display: grid;
     grid-template-columns: 50px 1fr 100px 120px;
     gap: 1rem;
-    padding: 1rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     position: sticky;
     top: 0;
-    background: #1a1a2e;
+    background: #1a1a1a;
     z-index: 1;
   }
 
@@ -202,21 +257,22 @@
   .header-name,
   .header-time,
   .header-date {
-    font-weight: 700;
+    font-weight: 600;
     color: #888;
     text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
   }
 
   .score-entry {
     display: grid;
     grid-template-columns: 50px 1fr 100px 120px;
     gap: 1rem;
-    padding: 1rem;
+    padding: 0.75rem 1rem;
     border-radius: 8px;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
     align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .score-entry:hover {
@@ -233,25 +289,12 @@
   }
 
   .rank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: 700;
-    font-size: 1rem;
-    text-align: center;
-  }
-
-  .rank-1 {
-    color: #ffd700;
-    font-size: 1.2rem;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-  }
-
-  .rank-2 {
-    color: #c0c0c0;
-    font-size: 1.1rem;
-  }
-
-  .rank-3 {
-    color: #cd7f32;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    gap: 0.25rem;
   }
 
   .name {
@@ -266,12 +309,14 @@
   }
 
   .you-badge {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    background: #00ff88;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
     color: #0a0a0a;
     border-radius: 4px;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   .time {
@@ -291,20 +336,38 @@
       width: 95%;
       padding: 1.5rem;
       max-height: 90vh;
+      border-radius: 12px;
+    }
+
+    .modal-header {
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .header-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .header-icon :global(svg) {
+      width: 24px;
+      height: 24px;
+    }
+
+    .modal-header h2 {
+      font-size: 1.25rem;
     }
 
     .list-header,
     .score-entry {
       grid-template-columns: 40px 1fr 80px;
+      gap: 0.75rem;
+      padding: 0.65rem 0.75rem;
     }
 
     .header-date,
     .date {
       display: none;
-    }
-
-    h2 {
-      font-size: 1.4rem;
     }
   }
 </style>
