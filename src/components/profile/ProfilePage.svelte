@@ -6,6 +6,7 @@
   import { getRank } from '../../lib/utils/rank.js';
   import { Trophy, Gamepad2, Award, TrendingUp, Calendar, Target, ArrowLeft } from 'lucide-svelte';
   import Navbar from '../start/Navbar.svelte';
+  import PerformanceChart from './PerformanceChart.svelte';
 
   let userStats = null;
   let detailedStats = null;
@@ -178,6 +179,14 @@
           </div>
         </div>
       </div>
+
+      <!-- Performance Chart -->
+      {#if detailedStats?.allScores && detailedStats.allScores.length > 0}
+        <div class="chart-section">
+          <h3 class="section-title">Performance Trend</h3>
+          <PerformanceChart games={detailedStats.allScores} />
+        </div>
+      {/if}
 
       <!-- Recent Games -->
       {#if detailedStats?.recentGames && detailedStats.recentGames.length > 0}
@@ -644,6 +653,10 @@
   }
 
   .history-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .chart-section {
     margin-bottom: 2.5rem;
   }
 
