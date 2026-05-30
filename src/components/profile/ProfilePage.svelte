@@ -9,6 +9,7 @@
   import PerformanceChart from './PerformanceChart.svelte';
   import Achievements from './Achievements.svelte';
   import ShareStats from './ShareStats.svelte';
+  import ShareableImage from './ShareableImage.svelte';
 
   let userStats = null;
   let detailedStats = null;

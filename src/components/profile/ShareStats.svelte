@@ -1,4 +1,6 @@
 <script>
+  import ShareableImage from './ShareableImage.svelte';
+
   export let gamesPlayed = 0;
   export let bestTime = 0;
   export let globalRank = null;
@@ -56,6 +58,14 @@
   {#if showShareMenu}
     <div class="share-menu">
       <div class="share-header">Share your achievements</div>
+
+      <ShareableImage
+        playerName={playerName}
+        bestTime={bestTime}
+        globalRank={globalRank}
+        percentile={percentile}
+      />
+
       <div class="share-options">
         <button class="share-option" on:click={shareOnTwitter}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -116,19 +126,21 @@
     background: rgba(26, 26, 46, 0.98);
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    padding: 0.75rem;
-    min-width: 220px;
+    padding: 1rem;
+    min-width: 650px;
+    max-width: 650px;
     z-index: 1000;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
   }
 
   .share-header {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #fff;
     padding: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
   }
 
   .share-options {
