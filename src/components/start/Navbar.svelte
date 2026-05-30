@@ -82,6 +82,9 @@
     right: 0;
     z-index: 100;
     padding: 1rem 2rem;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .navbar-content {
