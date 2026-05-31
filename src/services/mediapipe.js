@@ -124,6 +124,10 @@ export class MediaPipeService {
 
     const landmarks = results.multiFaceLandmarks[0];
 
+    // Check landmark visibility for obstruction detection
+    // MediaPipe provides visibility scores (0-1) for each landmark
+    const visibilityScores = this.checkEyeLandmarkVisibility(landmarks);
+
     // Calculate enhanced EAR - return raw EAR values directly
     // Higher EAR = more open, Lower EAR = more closed
     const { left: leftEAR, right: rightEAR } = this.calculateEnhancedEAR(landmarks);
@@ -131,13 +135,39 @@ export class MediaPipeService {
     // Debug logging (sample every 30 frames to avoid spam)
     this.frameCount++;
     if (this.frameCount % 30 === 0) {
-      console.log('[MediaPipe] Raw EAR - Left:', leftEAR.toFixed(3), 'Right:', rightEAR.toFixed(3));
+      console.log('[MediaPipe] Raw EAR - Left:', leftEAR.toFixed(3), 'Right:', rightEAR.toFixed(3), 'Visibility:', visibilityScores);
     }
 
     return {
       left: leftEAR,
       right: rightEAR,
-      detected: true
+      detected: true,
+      visibility: visibilityScores
+    };
+  }
+
+  checkEyeLandmarkVisibility(landmarks) {
+    // Check visibility of key eye landmarks
+    // MediaPipe provides visibility (0-1) indicating if landmark is visible/occluded
+    const leftEyeIndices = [33, 160, 158, 133, 153, 145];
+    const rightEyeIndices = [362, 385, 387, 263, 373, 380];
+
+    let leftVisibilitySum = 0;
+    let rightVisibilitySum = 0;
+
+    for (const index of leftEyeIndices) {
+      const landmark = landmarks[index];
+      leftVisibilitySum += (landmark.visibility || 0);
+    }
+
+    for (const index of rightEyeIndices) {
+      const landmark = landmarks[index];
+      rightVisibilitySum += (landmark.visibility || 0);
+    }
+
+    return {
+      left: leftVisibilitySum / leftEyeIndices.length,
+      right: rightVisibilitySum / rightEyeIndices.length
     };
   }
 

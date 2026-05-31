@@ -27,6 +27,11 @@
     await loadUserCentricLeaderboard();
   });
 
+  // Reload leaderboard when auth state changes
+  $: if ($authState.isAuthenticated !== undefined) {
+    loadUserCentricLeaderboard();
+  }
+
   async function loadUserCentricLeaderboard() {
     let userId, guestIdentifier;
 
@@ -50,6 +55,8 @@
   <h2>
     {#if $leaderboard.userCentric?.userRank}
       Your Rank: #{$leaderboard.userCentric.userRank}
+    {:else if $authState.isAuthenticated}
+      Welcome, {$authState.user?.game_name || 'Player'}!
     {:else}
       Top Stare-ers
     {/if}
@@ -58,7 +65,13 @@
   {#if $leaderboard.isLoading}
     <p class="loading">Loading leaderboard...</p>
   {:else if !$leaderboard.userCentric || $leaderboard.userCentric.scores.length === 0}
-    <p class="empty">No scores yet. Be the first!</p>
+    <p class="empty">
+      {#if $authState.isAuthenticated}
+        No scores yet. Play your first game to appear on the leaderboard!
+      {:else}
+        No scores yet. Be the first!
+      {/if}
+    </p>
   {:else}
     <div class="entries">
       {#each $leaderboard.userCentric.scores.slice(0, 3) as score, index}

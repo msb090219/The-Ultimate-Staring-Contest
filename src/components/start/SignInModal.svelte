@@ -1,7 +1,6 @@
 <script>
   import { authService } from '../../services/auth.js';
   import { authState } from '../../stores/authState.js';
-  import OAuthButton from './OAuthButton.svelte';
 
   export let isOpen = false;
 
@@ -94,14 +93,6 @@
       <h2>{isSignUp ? 'Create Account' : 'Sign In'}</h2>
 
       <div class="auth-content">
-        <!-- Google OAuth -->
-        <div class="oauth-section">
-          <p class="divider">Or continue with</p>
-          <div class="oauth-button-wrapper">
-            <OAuthButton provider="google" />
-          </div>
-        </div>
-
         <!-- Email Form -->
         <form on:submit|preventDefault={handleSubmit} class="email-form">
           {#if isSignUp}
@@ -178,14 +169,27 @@
   }
 
   .modal {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    border-radius: 20px;
-    padding: 2.5rem;
+    background: #1a1a1a;
+    border-radius: 16px;
+    padding: 2rem;
     width: 90%;
     max-width: 420px;
     position: relative;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    animation: modalFadeIn 0.2s ease;
+  }
+
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   .close-btn {
@@ -197,20 +201,27 @@
     color: #888;
     font-size: 1.5rem;
     cursor: pointer;
-    padding: 0.25rem;
+    padding: 0.5rem;
     line-height: 1;
-    transition: color 0.2s ease;
+    transition: color 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
   }
 
   .close-btn:hover {
     color: #fff;
+    background: rgba(255, 255, 255, 0.05);
   }
 
   h2 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 700;
     text-align: center;
-    margin: 0 0 2rem 0;
+    margin: 0 0 1.5rem 0;
     color: #fff;
   }
 
@@ -218,24 +229,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-  }
-
-  .oauth-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .divider {
-    text-align: center;
-    color: #888;
-    font-size: 0.9rem;
-    margin: 0;
-  }
-
-  .oauth-button-wrapper {
-    display: flex;
-    justify-content: center;
+    margin-top: 0.5rem;
   }
 
   .email-form {

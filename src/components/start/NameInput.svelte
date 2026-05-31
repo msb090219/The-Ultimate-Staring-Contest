@@ -8,43 +8,54 @@
   }
 </script>
 
-<input
-  type="text"
-  bind:value={value}
-  {placeholder}
-  maxlength="20"
-  class:size={size}
-  readonly
-  on:focus={(e) => e.target.blur()}
-/>
+<div class="name-display" class:size={size}>
+  <span class="name-label">Playing as</span>
+  <div class="name-badge">{value || placeholder}</div>
+</div>
 
 <style>
-  input {
-    width: 100%;
-    max-width: 300px;
-    font-size: 1rem;
-    padding: 1rem 0.75rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    color: #ffffff;
-    text-align: center;
-    transition: border-color 0.2s ease;
+  .name-display {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 
-  input:focus {
-    outline: none;
-    border-color: #00ff88;
-  }
-
-  input::placeholder {
+  .name-label {
+    font-size: 0.75rem;
     color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+  }
+
+  .name-badge {
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    min-width: 140px;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+
+  .name-badge:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
   }
 
   /* Compact variant for navbar */
-  input.size-compact {
-    max-width: 150px;
-    font-size: 0.9rem;
+  .name-display.size-compact .name-label {
+    font-size: 0.65rem;
+  }
+
+  .name-display.size-compact .name-badge {
+    min-width: 100px;
     padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
   }
 </style>

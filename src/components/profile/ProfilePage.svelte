@@ -10,32 +10,10 @@
   import Achievements from './Achievements.svelte';
   import ShareStats from './ShareStats.svelte';
 
-  let userStats = null;
   let detailedStats = null;
   let userScores = [];
   let loading = true;
   let error = null;
-
-  onMount(async () => {
-    if (!$authState.isAuthenticated) {
-      gameState.setPhase('landing');
-      return;
-    }
-
-    await loadUserStats();
-    await loadDetailedStats();
-  });
-
-  async function loadUserStats() {
-    loading = true;
-    const result = await supabaseService.getUserProfile($authState.user.id);
-    if (result.success) {
-      userStats = result.data;
-    } else {
-      error = result.error;
-    }
-    loading = false;
-  }
 
   async function loadUserScores() {
     const result = await supabaseService.getUserBestScore($authState.user.id);
@@ -50,6 +28,24 @@
       detailedStats = result.data;
     }
   }
+
+  onMount(async () => {
+    if (!$authState.isAuthenticated) {
+      gameState.setPhase('landing');
+      return;
+    }
+
+    try {
+      await Promise.all([
+        loadUserScores(),
+        loadDetailedStats()
+      ]);
+    } catch (err) {
+      error = err.message || 'Failed to load stats';
+    } finally {
+      loading = false;
+    }
+  });
 
   function handleBack() {
     gameState.setPhase('start');
@@ -74,18 +70,23 @@
 
   <div class="content">
     <div class="page-header">
-      <button class="back-btn" on:click={handleBack}>
-        <ArrowLeft size={20} />
-      </button>
-      <h1>Your Stats</h1>
+      <div class="header-left">
+        <button class="back-btn" on:click={handleBack}>
+          <ArrowLeft size={20} />
+        </button>
+        <h1>Your Stats</h1>
+      </div>
       {#if detailedStats}
-        <ShareStats
-          gamesPlayed={detailedStats.gamesPlayed}
-          bestTime={detailedStats.bestTime}
-          globalRank={detailedStats.globalRank}
-          percentile={detailedStats.percentile}
-          playerName={$authState.user?.game_name || 'Player'}
-        />
+        <div class="header-right">
+          <ShareStats
+            bestTime={detailedStats.bestTime}
+            globalRank={detailedStats.globalRank}
+            percentile={detailedStats.percentile}
+            gamesPlayed={detailedStats.gamesPlayed}
+            averageTime={detailedStats.averageTime}
+            playerName={$authState.user?.game_name || 'Player'}
+          />
+        </div>
       {/if}
     </div>
 
@@ -262,7 +263,7 @@
       {/if}
 
       <!-- Empty State -->
-      {#if !userStats?.best_time}
+      {#if !detailedStats?.bestTime}
         <div class="empty-state">
           <Target size={64} />
           <h3>No games played yet</h3>
@@ -294,9 +295,21 @@
   .page-header {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
+    justify-content: space-between;
+    margin-bottom: 4rem;
     flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
   }
 
   .page-header h1 {

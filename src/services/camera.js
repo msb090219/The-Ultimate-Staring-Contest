@@ -65,7 +65,7 @@ export class CameraService {
     return this.videoElement;
   }
 
-  isActive() {
+  getActive() {
     return this.isActive;
   }
 

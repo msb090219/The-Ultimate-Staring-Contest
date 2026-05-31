@@ -99,6 +99,8 @@ export class AuthService {
 
       if (error) throw error;
 
+      // Clear loading state on success
+      authState.setLoading(false);
       return { success: true };
     } catch (error) {
       console.error('Email sign-in failed:', error);
@@ -124,6 +126,8 @@ export class AuthService {
 
       if (error) throw error;
 
+      // Clear loading state on success
+      authState.setLoading(false);
       return { success: true, data };
     } catch (error) {
       console.error('Email sign-up failed:', error);
@@ -158,6 +162,9 @@ export class AuthService {
 
       authState.logout();
       authState.setLoading(false);
+
+      // Refresh page to clear all cached state
+      window.location.reload();
 
       return { success: true };
     } catch (error) {

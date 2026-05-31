@@ -1,10 +1,11 @@
 <script>
   import ShareStatsModal from './ShareStatsModal.svelte';
 
-  export let gamesPlayed = 0;
   export let bestTime = 0;
   export let globalRank = null;
   export let percentile = 0;
+  export let gamesPlayed = 0;
+  export let averageTime = 0;
   export let playerName = 'Player';
 
   let showShareModal = false;
@@ -31,6 +32,8 @@
     bestTime={bestTime}
     globalRank={globalRank}
     percentile={percentile}
+    gamesPlayed={gamesPlayed}
+    averageTime={averageTime}
   />
 </div>
 

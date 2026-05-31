@@ -1,40 +1,43 @@
 <script>
   export let time = 0;
-  import { MESSAGES } from '../../lib/constants/messages.js';
+  import { authState } from '../../stores/authState.js';
+  import ShareResultModal from './ShareResultModal.svelte';
 
-  let copySuccess = false;
-  let copyTimeout = null;
+  let showShareModal = false;
 
-  async function handleShare() {
-    const text = `${MESSAGES.share.template(time)} https://ultimate-staring-competition.com`;
+  function handleShare() {
+    showShareModal = true;
+  }
 
-    try {
-      await navigator.clipboard.writeText(text);
-
-      copySuccess = true;
-
-      if (copyTimeout) clearTimeout(copyTimeout);
-      copyTimeout = setTimeout(() => {
-        copySuccess = false;
-      }, 2000);
-    } catch (error) {
-      console.error('Failed to copy:', error);
+  function getShareName() {
+    if ($authState.isAuthenticated && $authState.user?.game_name) {
+      return $authState.user.game_name;
     }
+    return 'Player';
   }
 </script>
 
-<button
-  class="share-button"
-  on:click={handleShare}
->
-  {#if copySuccess}
-    ✓ {MESSAGES.share.copySuccess}
-  {:else}
+<div class="share-button-container">
+  <button
+    class="share-button"
+    on:click={handleShare}
+  >
     Share Score
-  {/if}
-</button>
+  </button>
+
+  <ShareResultModal
+    isOpen={showShareModal}
+    onClose={() => showShareModal = false}
+    {time}
+    playerName={getShareName()}
+  />
+</div>
 
 <style>
+  .share-button-container {
+    position: relative;
+  }
+
   .share-button {
     padding: 1rem 2rem;
     font-size: 1rem;

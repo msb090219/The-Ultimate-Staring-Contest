@@ -21,7 +21,6 @@
       </svg>
     </div>
     <span class="warning-text">{message}</span>
-    <div class="warning-bar"></div>
   </div>
 {/if}
 
@@ -56,14 +55,6 @@
     text-align: center;
   }
 
-  .warning-bar {
-    width: 4px;
-    height: 24px;
-    background: linear-gradient(to top, #ff4444, #ff6b6b);
-    border-radius: 2px;
-    animation: barFill calc(0.5s + var(--intensity) * 0.5s) ease-in-out infinite;
-  }
-
   @keyframes warningPulse {
     0%, 100% {
       opacity: 0.8;
@@ -84,17 +75,6 @@
     }
     75% {
       transform: translateX(1px);
-    }
-  }
-
-  @keyframes barFill {
-    0%, 100% {
-      height: 16px;
-      opacity: 0.7;
-    }
-    50% {
-      height: 24px;
-      opacity: 1;
     }
   }
 </style>

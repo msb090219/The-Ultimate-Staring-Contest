@@ -80,9 +80,6 @@
       <!-- Player controls above leaderboard -->
       <div class="player-section">
         <div class="player-controls-wrapper">
-          <div class="player-label-row">
-            <span class="player-label">Playing as</span>
-          </div>
           <div class="player-input-row">
             <NameInput bind:value={playerName} placeholder="Enter your name" />
             <StartButton
@@ -146,25 +143,13 @@
   .player-controls-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    align-items: flex-start;
-  }
-
-  .player-label-row {
-    text-align: left;
-  }
-
-  .player-label {
-    font-size: 1rem;
-    color: #888;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    align-items: center;
   }
 
   .player-input-row {
     display: flex;
-    align-items: center;
-    gap: 1.5rem;
+    align-items: flex-end;
+    gap: 0.75rem;
   }
 
   @media (max-width: 600px) {
@@ -172,17 +157,9 @@
       padding-top: 6rem;
     }
 
-    .player-controls-wrapper {
-      align-items: center;
-    }
-
     .player-input-row {
       flex-direction: column;
       gap: 1rem;
-    }
-
-    .player-input-row :global(input) {
-      width: 100%;
     }
   }
 </style>

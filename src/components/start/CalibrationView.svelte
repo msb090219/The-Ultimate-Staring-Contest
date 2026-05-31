@@ -173,12 +173,9 @@
   <div class="calibration-info">
     {#if !isInitialized}
       <div class="loading-state">
-        <div class="eye-loader">
-          <div class="eye outer">
-            <div class="eye inner">
-              <div class="pupil"></div>
-            </div>
-          </div>
+        <div class="recording-indicator">
+          <div class="recording-ring"></div>
+          <div class="recording-dot"></div>
         </div>
         <p class="loading-text">Initializing camera...</p>
       </div>
@@ -278,84 +275,46 @@
     padding: 2rem;
   }
 
-  .eye-loader {
+  .recording-indicator {
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .eye {
+  .recording-ring {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    border: 2px solid rgba(255, 68, 68, 0.3);
+    border-radius: 50%;
+  }
+
+  .recording-dot {
     position: relative;
+    width: 16px;
+    height: 16px;
+    background: #ff4444;
     border-radius: 50%;
-    animation: blink 3s ease-in-out infinite;
+    animation: recordingPulse 1.5s ease-in-out infinite;
+    z-index: 1;
   }
 
-  .eye.outer {
-    width: 80px;
-    height: 80px;
-    border: 3px solid #00ff88;
-    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3), inset 0 0 20px rgba(0, 255, 136, 0.1);
-  }
-
-  .eye.inner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
-    border: 2px solid #00ccff;
-    box-shadow: 0 0 15px rgba(0, 204, 255, 0.3), inset 0 0 15px rgba(0, 204, 255, 0.1);
-  }
-
-  .pupil {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 20px;
-    height: 20px;
-    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
-    border-radius: 50%;
-    box-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
-    animation: pulse 1.5s ease-in-out infinite;
-  }
-
-  @keyframes blink {
-    0%, 90%, 100% {
-      transform: scaleY(1);
-    }
-    95% {
-      transform: scaleY(0.1);
-    }
-  }
-
-  @keyframes pulse {
+  @keyframes recordingPulse {
     0%, 100% {
-      transform: translate(-50%, -50%) scale(1);
       opacity: 1;
+      transform: scale(1);
     }
     50% {
-      transform: translate(-50%, -50%) scale(1.2);
-      opacity: 0.8;
+      opacity: 0.7;
+      transform: scale(1.05);
     }
   }
 
   .loading-text {
-    color: #00ccff;
+    color: #888;
     font-size: 1rem;
-    animation: fadePulse 2s ease-in-out infinite;
-  }
-
-  @keyframes fadePulse {
-    0%, 100% {
-      opacity: 0.5;
-    }
-    50% {
-      opacity: 1;
-    }
   }
 </style>

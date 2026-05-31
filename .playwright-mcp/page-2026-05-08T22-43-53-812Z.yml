@@ -1,9 +1,0 @@
-- generic [ref=e5]:
-  - heading "The Ultimate Staring Competition" [level=1] [ref=e6]
-  - paragraph [ref=e7]: How long can you maintain eye contact without blinking?
-  - generic [ref=e25]:
-    - paragraph [ref=e26]: Perfect! You're ready to stare.
-    - button "Start Game" [active] [ref=e27] [cursor=pointer]
-  - generic [ref=e19]:
-    - heading "Top Stare-ers" [level=2] [ref=e20]
-    - paragraph [ref=e21]: No scores yet. Be the first!

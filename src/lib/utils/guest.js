@@ -2,7 +2,11 @@ const GUEST_ID_KEY = 'stare_guest_id';
 const GUEST_NAME_KEY = 'stare_guest_name';
 
 export function generateGuestId() {
-  return 'guest_' + crypto.randomUUID();
+  // Fallback for browsers that don't support crypto.randomUUID
+  const randomId = typeof crypto !== 'undefined' && crypto.randomUUID
+    ? crypto.randomUUID()
+    : 'xxxx-xxxx-xxxx-xxxx-xxxx'.replace(/[x]/g, () => (Math.random() * 16 | 0).toString(16));
+  return 'guest_' + randomId;
 }
 
 export function generateGuestName() {

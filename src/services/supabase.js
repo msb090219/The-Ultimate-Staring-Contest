@@ -222,16 +222,25 @@ export class SupabaseService {
     }
   }
 
-  async getUserBestScore(userId) {
+  async getUserBestScore(identifier) {
     try {
-      const { data, error } = await this.client
+      // Check if identifier is a UUID (user_id) or guest identifier
+      const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(identifier);
+
+      let query = this.client
         .from('scores')
         .select('*')
-        .eq('user_id', userId)
         .eq('is_disqualified', false)
         .order('time_seconds', { ascending: false })
-        .limit(1)
-        .single();
+        .limit(1);
+
+      if (isUUID) {
+        query = query.eq('user_id', identifier);
+      } else {
+        query = query.eq('guest_identifier', identifier);
+      }
+
+      const { data, error } = await query.single();
 
       if (error && error.code !== 'PGRST116') throw error; // PGRST116 = no rows
       return { success: true, data };
@@ -243,15 +252,25 @@ export class SupabaseService {
 
   async getUserDetailedStats(userId) {
     try {
-      // Get all user's scores
+      // Get all user's scores ordered by time (best first) for bestTime calculation
       const { data: userScores, error } = await this.client
         .from('scores')
         .select('*')
         .eq('user_id', userId)
         .eq('is_disqualified', false)
-        .order('created_at', { ascending: false });
+        .order('time_seconds', { ascending: false });
 
       if (error) throw error;
+
+      // Get all scores ordered by date for the chart (chronological)
+      const { data: chronologicalScores, error: chronoError } = await this.client
+        .from('scores')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('is_disqualified', false)
+        .order('created_at', { ascending: true });
+
+      if (chronoError) throw chronoError;
 
       // Get global leaderboard for rank calculation
       const globalResult = await this.getTopScores(10000); // Get all scores for accurate ranking
@@ -301,7 +320,7 @@ export class SupabaseService {
           totalPlayers,
           percentile,
           recentGames,
-          allScores: userScores || []
+          allScores: chronologicalScores || []
         }
       };
     } catch (error) {

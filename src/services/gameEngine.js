@@ -17,6 +17,7 @@ export class GameEngine {
     this.consecutiveBlinkFrames = 0;
     this.requiredBlinkFrames = 1;  // Instant blink detection (was 2)
     this.gameStartTime = 0;  // Track when game actually starts
+    this.frameCount = 0;  // Initialize debug counter here
 
     // Face size tracking for movement compensation
     this.initialFaceSize = null;

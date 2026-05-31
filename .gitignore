@@ -36,3 +36,14 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Temp testing/debug files
+.playwright-mcp/
+*-debug.png
+*-test.png
+*-landing*.png
+*-navbar*.png
+*-header*.png
+*-screenshot.png
+DEBUGGING*.md
+GOOGLE_OAUTH*.md

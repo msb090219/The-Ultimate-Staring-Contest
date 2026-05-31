@@ -57,9 +57,13 @@
     const canvas = canvasElement;
     const video = videoElement;
 
-    // Set canvas size to match video
-    canvas.width = video.videoWidth || 640;
-    canvas.height = video.videoHeight || 480;
+    // Only set canvas size if it has changed (performance optimization)
+    const targetWidth = video.videoWidth || 640;
+    const targetHeight = video.videoHeight || 480;
+    if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+      canvas.width = targetWidth;
+      canvas.height = targetHeight;
+    }
 
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);

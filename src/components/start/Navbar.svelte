@@ -5,7 +5,6 @@
   import { BarChart3, LogOut } from 'lucide-svelte';
 
   export let onSignIn = () => {};
-  export let inCalibration = false;
 
   let showUserMenu = false;
 
@@ -21,15 +20,19 @@
     gameState.setPhase('profile');
     closeUserMenu();
   }
+
+  function goToHome() {
+    gameState.setPhase('landing');
+  }
 </script>
 
 <nav class="navbar">
   <div class="navbar-content">
     <div class="navbar-left">
-      <a href="/" class="logo-link">
+      <button class="logo-link" on:click={goToHome}>
         <img src="/favicon.svg" alt="The Ultimate Staring Competition" class="logo-icon" />
         <span class="logo-text">The Ultimate Staring Competition</span>
-      </a>
+      </button>
     </div>
 
     <div class="navbar-right">
@@ -105,6 +108,10 @@
     align-items: center;
     gap: 0.75rem;
     text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
   }
 
   .logo-icon {
@@ -184,46 +191,60 @@
 
   .user-dropdown {
     position: absolute;
-    top: calc(100% + 0.5rem);
+    top: calc(100% + 0.75rem);
     right: 0;
-    background: rgba(26, 26, 46, 0.98);
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    padding: 0.75rem 0;
-    min-width: 220px;
+    padding: 0.75rem;
+    min-width: 240px;
     z-index: 1000;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
+    animation: dropdownFadeIn 0.15s ease;
+  }
+
+  @keyframes dropdownFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .user-info {
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.75rem;
+    margin-bottom: 0;
   }
 
   .user-name {
     display: block;
     font-weight: 600;
     color: #fff;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    letter-spacing: 0.3px;
   }
 
   .user-email {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #888;
     margin-top: 0.25rem;
+    letter-spacing: 0.2px;
   }
 
   .dropdown-divider {
     height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 0.5rem 0;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 0;
   }
 
   .dropdown-item {
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 0.5rem;
     background: none;
     border: none;
     color: #fff;
@@ -233,27 +254,31 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    transition: background 0.15s ease;
+    transition: background-color 0.2s ease;
+    border-radius: 0;
+    font-weight: 500;
   }
 
   .dropdown-item:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 255, 136, 0.1);
   }
 
   .dropdown-icon {
     color: #00ff88;
+    flex-shrink: 0;
   }
 
   .dropdown-danger {
-    color: #ff4757;
+    color: #ff6b6b;
+    border-radius: 0 0 12px 12px;
   }
 
   .dropdown-danger:hover {
-    background: rgba(255, 71, 87, 0.1);
+    background: rgba(255, 71, 87, 0.08);
   }
 
   .dropdown-danger .dropdown-icon {
-    color: #ff4757;
+    color: #ff6b6b;
   }
 
   .dropdown-backdrop {
@@ -263,6 +288,7 @@
     right: 0;
     bottom: 0;
     z-index: 999;
+    background: transparent;
   }
 
   @media (max-width: 600px) {

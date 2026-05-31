@@ -26,9 +26,49 @@
     isLoading = true;
     // Import supabaseService dynamically to avoid circular dependencies
     const { supabaseService } = await import('../../services/supabase.js');
-    const result = await supabaseService.getTopScores(100);
+    const result = await supabaseService.getTopScores(500);
     if (result.success) {
       allScores = result.data;
+
+      // Check if current user is in the top 500
+      const userId = $authState.isAuthenticated ? $authState.user?.id : null;
+      const guest = getOrCreateGuest();
+      const guestIdentifier = $authState.isAuthenticated ? null : guest.id;
+
+      let userInTop500 = false;
+      if (userId) {
+        userInTop500 = allScores.some(score => score.user_id === userId);
+      } else if (guestIdentifier) {
+        userInTop500 = allScores.some(score => score.guest_identifier === guestIdentifier);
+      }
+
+      // If user not in top 500, fetch their actual score and rank
+      if (!userInTop500 && (userId || guestIdentifier)) {
+        const userResult = await supabaseService.getUserBestScore(userId || guestIdentifier);
+        if (userResult.success && userResult.data) {
+          // Get all scores to calculate user's actual rank
+          const allScoresResult = await supabaseService.getTopScores(10000);
+          if (allScoresResult.success) {
+            const allScoresList = allScoresResult.data;
+            let actualRank = 0;
+            for (let i = 0; i < allScoresList.length; i++) {
+              const key = allScoresList[i].user_id || allScoresList[i].guest_identifier;
+              const userKey = userId || guestIdentifier;
+              if (key === userKey) {
+                actualRank = i + 1;
+                break;
+              }
+            }
+
+            // Add user's score at the end with their actual rank
+            allScores.push({
+              ...userResult.data,
+              actualRank: actualRank,
+              isUserAtEnd: true
+            });
+          }
+        }
+      }
     }
     isLoading = false;
   }
@@ -96,10 +136,11 @@
           </div>
           {#each allScores as score, index}
             {@const isUser = isCurrentUser(score)}
-            {@const rank = index + 1}
-            <div class="score-entry" class:current-user={isCurrentUser(score)}>
-              <span class="rank" style:color={getMedalColor(rank)}>
-                {#if rank <= 3}
+            {@const rank = score.actualRank || (index + 1)}
+            {@const isAtEnd = score.isUserAtEnd}
+            <div class="score-entry" class:current-user={isUser(score)} class:user-at-end={isAtEnd}>
+              <span class="rank" style:color={isAtEnd ? '#888' : getMedalColor(rank)}>
+                {#if !isAtEnd && rank <= 3}
                   <Trophy size={16} style="margin-right: 4px;" />
                 {/if}
                 {rank}
@@ -108,6 +149,9 @@
                 {score.game_name}
                 {#if isUser}
                   <span class="you-badge">You</span>
+                {/if}
+                {#if isAtEnd}
+                  <span class="rank-badge">Rank #{rank}</span>
                 {/if}
               </span>
               <span class="time">{score.time_seconds.toFixed(2)}s</span>
@@ -275,6 +319,11 @@
     background: rgba(0, 255, 136, 0.15);
   }
 
+  .score-entry.user-at-end {
+    border-top: 2px solid rgba(0, 255, 136, 0.5);
+    margin-top: 0.5rem;
+  }
+
   .rank {
     display: flex;
     align-items: center;
@@ -304,6 +353,16 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+  }
+
+  .rank-badge {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+    background: rgba(136, 136, 136, 0.2);
+    color: #888;
+    border-radius: 3px;
+    font-weight: 500;
+    margin-left: 0.25rem;
   }
 
   .time {
