@@ -14,14 +14,25 @@
     showLeaderboardModal = true;
   }
 
+  let prevUserId = null;
+  let prevGuestId = null;
+
   onMount(async () => {
-    // Load user-centric leaderboard if not already loaded
+    // Load user-centric leaderboard on mount
     await loadUserCentricLeaderboard();
   });
 
-  // Reload leaderboard when auth state changes (sign in/out)
+  // Reload leaderboard when user actually changes (not just auth state)
   $: if ($authState.isAuthenticated !== undefined) {
-    loadUserCentricLeaderboard();
+    const currentUserId = $authState.isAuthenticated ? $authState.user?.id : null;
+    const currentGuestId = $authState.isAuthenticated ? getGuestId() : getGuestId();
+
+    // Only reload if user actually changed
+    if (currentUserId !== prevUserId || currentGuestId !== prevGuestId) {
+      prevUserId = currentUserId;
+      prevGuestId = currentGuestId;
+      loadUserCentricLeaderboard();
+    }
   }
 
   async function loadUserCentricLeaderboard() {
