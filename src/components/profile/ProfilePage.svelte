@@ -316,7 +316,7 @@
     font-size: 2rem;
     font-weight: 700;
     margin: 0;
-    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    background: #00ff88;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -375,7 +375,7 @@
     align-items: center;
     gap: 2rem;
     padding: 2.5rem;
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.05) 0%, rgba(0, 204, 255, 0.05) 100%);
+    background: rgba(0, 255, 136, 0.05);
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     margin-bottom: 2.5rem;
@@ -391,7 +391,7 @@
     justify-content: center;
     width: 120px;
     height: 120px;
-    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    background: #00ff88;
     border-radius: 50%;
     font-size: 2.5rem;
     font-weight: 700;
@@ -494,7 +494,7 @@
   }
 
   .stat-icon-primary {
-    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    background: #00ff88;
     color: #0a0a0a;
   }
 
@@ -603,7 +603,7 @@
     align-items: center;
     gap: 2rem;
     padding: 2rem;
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.05) 0%, rgba(0, 204, 255, 0.05) 100%);
+    background: rgba(0, 255, 136, 0.05);
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
   }
@@ -615,7 +615,7 @@
     justify-content: center;
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    background: #00ff88;
     border-radius: 16px;
     color: #0a0a0a;
   }
@@ -687,7 +687,7 @@
 
   .empty-state button {
     padding: 1rem 2rem;
-    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    background: #00ff88;
     border: none;
     border-radius: 12px;
     color: #0a0a0a;

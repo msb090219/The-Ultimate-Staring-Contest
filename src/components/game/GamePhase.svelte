@@ -47,11 +47,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(
-      circle at center,
-      transparent 0%,
-      rgba(0, 255, 136, calc(var(--intensity) * 0.03)) 100%
-    );
+    background: rgba(0, 255, 136, calc(var(--intensity) * 0.03));
     animation: tensionPulse calc(3s - var(--intensity) * 1.5s) ease-in-out infinite;
     pointer-events: none;
     z-index: 0;

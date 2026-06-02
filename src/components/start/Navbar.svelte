@@ -129,7 +129,7 @@
   .logo-text {
     font-size: 1.2rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    background: #00ff88;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -176,7 +176,7 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    background: #00ff88;
     border-radius: 50%;
     color: #0a0a0a;
     font-weight: 700;

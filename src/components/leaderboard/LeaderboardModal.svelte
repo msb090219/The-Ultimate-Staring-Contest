@@ -212,7 +212,7 @@
     justify-content: center;
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    background: #00ff88;
     border-radius: 12px;
     color: #0a0a0a;
   }
@@ -351,7 +351,7 @@
   .you-badge {
     font-size: 0.7rem;
     padding: 0.2rem 0.5rem;
-    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    background: #00ff88;
     color: #0a0a0a;
     border-radius: 4px;
     font-weight: 600;

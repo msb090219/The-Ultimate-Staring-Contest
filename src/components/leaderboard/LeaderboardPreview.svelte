@@ -213,7 +213,7 @@
     width: 100%;
     padding: 1.25rem 2rem;
     margin-top: 2rem;
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 204, 255, 0.1) 100%);
+    background: rgba(0, 255, 136, 0.1);
     border: 2px solid rgba(0, 255, 136, 0.3);
     border-radius: 8px;
     color: #00ff88;
@@ -224,7 +224,7 @@
   }
 
   .view-all-btn:hover {
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.2) 0%, rgba(0, 204, 255, 0.2) 100%);
+    background: rgba(0, 255, 136, 0.2);
     border-color: rgba(0, 255, 136, 0.5);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);

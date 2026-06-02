@@ -91,7 +91,7 @@
     padding: 1.5rem 3rem;
     font-size: 1.3rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    background: #00ff88;
     border: none;
     border-radius: 12px;
     color: #0a0a0a;

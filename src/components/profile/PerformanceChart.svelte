@@ -69,12 +69,8 @@
 
     ctx.stroke();
 
-    // Draw gradient under the line
-    const gradient = ctx.createLinearGradient(0, padding.top, 0, padding.top + chartHeight);
-    gradient.addColorStop(0, 'rgba(0, 255, 136, 0.3)');
-    gradient.addColorStop(1, 'rgba(0, 255, 136, 0)');
-
-    ctx.fillStyle = gradient;
+    // Draw solid fill under the line
+    ctx.fillStyle = 'rgba(0, 255, 136, 0.15)';
     ctx.beginPath();
     ctx.moveTo(points[0].x, padding.top + chartHeight);
     points.forEach(point => ctx.lineTo(point.x, point.y));

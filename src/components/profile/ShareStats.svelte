@@ -47,7 +47,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 204, 255, 0.1) 100%);
+    background: rgba(0, 255, 136, 0.1);
     border: 2px solid rgba(0, 255, 136, 0.3);
     border-radius: 8px;
     color: #00ff88;
@@ -58,7 +58,7 @@
   }
 
   .share-stats-btn:hover {
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.2) 0%, rgba(0, 204, 255, 0.2) 100%);
+    background: rgba(0, 255, 136, 0.2);
     border-color: rgba(0, 255, 136, 0.5);
     transform: translateY(-1px);
   }

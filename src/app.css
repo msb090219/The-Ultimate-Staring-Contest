@@ -22,10 +22,10 @@
   --color-text-muted: #a0a0a0;
   --color-text-dim: #666666;
 
-  /* Gradient definitions */
-  --gradient-primary: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
-  --gradient-danger: linear-gradient(135deg, #ff4444 0%, #ff6b6b 100%);
-  --gradient-accent: linear-gradient(135deg, #9d4edd 0%, #c77dff 100%);
+  /* Gradient definitions (replaced with solid colors) */
+  --gradient-primary: #00ff88;
+  --gradient-danger: #ff4444;
+  --gradient-accent: #9d4edd;
 
   /* Eye glow effects */
   --glow-primary: 0 0 30px rgba(0, 255, 136, 0.4);

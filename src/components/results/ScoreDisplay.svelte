@@ -15,7 +15,7 @@
   .time {
     font-size: 5rem;
     font-weight: 900;
-    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    background: #00ff88;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

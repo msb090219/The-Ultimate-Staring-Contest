@@ -338,13 +338,13 @@
   }
 
   .action-btn.primary {
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 204, 255, 0.1) 100%);
+    background: rgba(0, 255, 136, 0.1);
     border-color: rgba(0, 255, 136, 0.3);
     color: #00ff88;
   }
 
   .action-btn.primary:hover {
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.2) 0%, rgba(0, 204, 255, 0.2) 100%);
+    background: rgba(0, 255, 136, 0.2);
     border-color: rgba(0, 255, 136, 0.5);
   }
 
