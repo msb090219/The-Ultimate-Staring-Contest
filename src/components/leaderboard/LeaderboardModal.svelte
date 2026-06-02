@@ -142,7 +142,7 @@
             {@const isUser = isCurrentUser(score)}
             {@const rank = score.actualRank || (index + 1)}
             {@const isAtEnd = score.isUserAtEnd}
-            <div class="score-entry" class:current-user={isUser(score)} class:user-at-end={isAtEnd}>
+            <div class="score-entry" class:current-user={isUser} class:user-at-end={isAtEnd}>
               <span class="rank" style:color={isAtEnd ? '#888' : getMedalColor(rank)}>
                 {#if !isAtEnd && rank <= 3}
                   <Trophy size={16} style="margin-right: 4px;" />
