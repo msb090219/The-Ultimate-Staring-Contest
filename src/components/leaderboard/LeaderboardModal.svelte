@@ -11,6 +11,7 @@
 
   let allScores = [];
   let isLoading = false;
+  let wasOpen = false;
 
   // ESC key handler
   function handleKeydown(e) {
@@ -73,9 +74,12 @@
     isLoading = false;
   }
 
-  // Reload scores when modal opens
-  $: if (isOpen) {
+  // Reload scores when modal opens (only when opening, not closing)
+  $: if (isOpen && !wasOpen) {
+    wasOpen = true;
     loadScores();
+  } else if (!isOpen) {
+    wasOpen = false;
   }
 
   function handleBackdropClick(e) {
